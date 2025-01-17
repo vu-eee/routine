@@ -1,6 +1,5 @@
 
-
-
+  
 const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLX2Q6ueX38WbATebZ2r8j2AuIgS2TOxcnGkk5WWwnGq5CITy09fDou81Bw9LB6yq9HxUDKqNj5vXT/pub?output=tsv'; // Replace with your actual Google Sheet URL
 
 const dayButton = document.getElementById('filterDayButton');
@@ -67,6 +66,12 @@ function fetchSchedule(day = selectedDay, semester = selectedSemester) {
       // Populate semester options dynamically
       if (semesters.length === 0) {
         const uniqueSemesters = [...new Set(rows.slice(1).map(row => row.split('\t')[0].trim()))];
+        uniqueSemesters.sort((a, b) => {
+          // Sort by numerical order (1st, 2nd, 3rd, etc.)
+          const orderA = parseInt(a) || 0;
+          const orderB = parseInt(b) || 0;
+          return orderA - orderB;
+        });
         uniqueSemesters.unshift('All'); // Add 'All' option at the beginning
         semesters = uniqueSemesters;
         generateSemesterMenu();
@@ -154,4 +159,3 @@ setInterval(() => {
   const now = new Date();
   document.querySelector('.header p').innerText = now.toLocaleString();
 }, 60000);
-
