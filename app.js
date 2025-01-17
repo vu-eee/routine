@@ -1,34 +1,29 @@
-const scheduleDiv = document.getElementById('schedule');
-const semesterButton = document.getElementById('semesterButton');
-const dayButton = document.getElementById('dayButton');
+
+
+
+const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLX2Q6ueX38WbATebZ2r8j2AuIgS2TOxcnGkk5WWwnGq5CITy09fDou81Bw9LB6yq9HxUDKqNj5vXT/pub?output=tsv'; // Replace with your actual Google Sheet URL
+
+const dayButton = document.getElementById('filterDayButton');
+const semesterButton = document.getElementById('filterSemesterButton');
 const dayMenu = document.getElementById('dayMenu');
 const semesterMenu = document.getElementById('semesterMenu');
+const scheduleDiv = document.getElementById('schedule');
 
-let selectedDay = 'Today'; // Default value is 'Today'
-let selectedSemester = 'All'; // Default semester filter is 'All'
+let selectedDay = 'Today'; // Default filter
+let selectedSemester = 'All'; // Default filter
 
-const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLX2Q6ueX38WbATebZ2r8j2AuIgS2TOxcnGkk5WWwnGq5CITy09fDou81Bw9LB6yq9HxUDKqNj5vXT/pub?output=tsv';
-
-// Update date and time
-function updateDateTime() {
-  const now = new Date();
-  const time = now.toLocaleTimeString();
-  const date = now.toLocaleDateString();
-  const dateTimeString = `${date} - ${time}`;
-  document.getElementById('date-time').innerText = dateTimeString;
-  document.getElementById('last-synced').innerText = `Last Synced: ${time}`;
-}
-
-// Fetch schedule for selected day and semester
+// Fetch and display schedule
 function fetchSchedule(day = selectedDay, semester = selectedSemester) {
   fetch(sheetUrl)
-    .then(response => {
-      if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(`Network response was not ok: ${response.statusText}`);
       return response.text();
     })
-    .then(data => {
+    .then((data) => {
       const rows = data.split('\n');
       scheduleDiv.innerHTML = ''; // Clear previous schedule
+
       let isDark = true;
 
       rows.forEach((row, index) => {
@@ -36,40 +31,63 @@ function fetchSchedule(day = selectedDay, semester = selectedSemester) {
         const cols = row.split('\t');
         if (cols.length < 8) return;
 
-        // Filter based on both selected semester and day
-        const semesterMatch = semester === 'All' || cols[0].trim() === semester;
-        const dayMatch = day === 'Today'
-          ? cols[1].trim() === new Date().toLocaleString('en-US', { weekday: 'long' })
-          : cols[1].trim() === day;
+        const semesterMatch =
+          semester === 'All' || cols[0].trim() === semester;
+        const dayMatch =
+          day === 'Today'
+            ? cols[1].trim() ===
+              new Date().toLocaleString('en-US', { weekday: 'long' })
+            : cols[1].trim() === day;
 
         if (semesterMatch && dayMatch) {
           const scheduleContainer = document.createElement('div');
-          scheduleContainer.classList.add('schedule-container', isDark ? 'dark' : 'yellow');
+          scheduleContainer.classList.add(
+            'schedule-container',
+            isDark ? 'dark' : 'yellow'
+          );
           scheduleContainer.innerHTML = `
             <h3>Time: ${cols[2]}</h3>
             <p>Course: ${cols[3]}</p>
             <p>Teacher: ${cols[4]}</p>
             <p>Room: ${cols[5]}</p>
-            ${cols[6].trim() ? `<p>Special Note: ${cols[6]}</p>` : ''}
-            ${cols[7].trim() ? `<p><strong>Important Link:</strong> <a href="${cols[7].trim()}" target="_blank">${cols[7].trim().slice(0, 30)}...</a></p>` : ''}
+            ${
+              cols[6].trim()
+                ? `<p>Special Note: ${cols[6]}</p>`
+                : ''
+            }
+            ${
+              cols[7].trim()
+                ? `<p><strong>Important Link:</strong> <a href="${
+                    cols[7].trim()
+                  }" target="_blank">${cols[7].trim().slice(0, 30)}...</a></p>`
+                : ''
+            }
           `;
           scheduleDiv.appendChild(scheduleContainer);
-          isDark = !isDark; // Alternate between dark and yellow backgrounds
+          isDark = !isDark; // Alternate between dark and yellow
         }
       });
     })
-    .catch(error => console.error('Error fetching or processing data:', error));
+    .catch((error) => console.error('Error fetching or processing data:', error));
 }
 
-// Select day and update the button text
+// Select Day
 function selectDay(day) {
   selectedDay = day;
-  dayButton.innerText = `Select Day: ${day}`;
-  dayMenu.style.display = 'none'; // Hide the menu after selection
-  fetchSchedule(day);
+  dayButton.innerText = `Filter Day: ${day}`;
+  dayMenu.style.display = 'none';
+  fetchSchedule(selectedDay, selectedSemester);
 }
 
-// Open semester menu
+// Select Semester
+function selectSemester(semester) {
+  selectedSemester = semester;
+  semesterButton.innerText = `Filter Semester: ${semester}`;
+  semesterMenu.style.display = 'none';
+  fetchSchedule(selectedDay, selectedSemester);
+}
+
+// Generate Semester Menu
 function generateSemesterMenu(semesters) {
   semesterMenu.innerHTML = '';
   semesters.forEach((semester) => {
@@ -85,38 +103,32 @@ function generateSemesterMenu(semesters) {
   semesterMenu.appendChild(closeBtn);
 }
 
-// Select semester
-function selectSemester(semester) {
-  selectedSemester = semester;
-  semesterButton.innerText = `Filter Semester: ${semester}`;
-  semesterMenu.style.display = 'none';
-  fetchSchedule(selectedDay, selectedSemester);
+// Update date and time
+function updateDateTime() {
+  const now = new Date();
+  document.getElementById('dateTime').innerText = now.toLocaleString();
 }
 
-// Example semester list
+// Example Semester List
 const semesters = ['All', 'Semester 1', 'Semester 2', 'Semester 3', 'Semester 4'];
 generateSemesterMenu(semesters);
 
-// Event listener to open semester menu
-semesterButton.addEventListener('click', () => {
-  semesterMenu.style.display = semesterMenu.style.display === 'none' || semesterMenu.style.display === '' ? 'block' : 'none';
-});
-
-// Event listener to open day menu
+// Event Listeners
 dayButton.addEventListener('click', () => {
-  if (dayMenu.style.display === 'none' || dayMenu.style.display === '') {
-    dayMenu.style.display = 'block';
-  } else {
-    dayMenu.style.display = 'none';
-  }
+  dayMenu.style.display =
+    dayMenu.style.display === 'none' || dayMenu.style.display === ''
+      ? 'block'
+      : 'none';
 });
 
-// Close the day menu
-function closeDayMenu() {
-  dayMenu.style.display = 'none';
-}
+semesterButton.addEventListener('click', () => {
+  semesterMenu.style.display =
+    semesterMenu.style.display === 'none' || semesterMenu.style.display === ''
+      ? 'block'
+      : 'none';
+});
 
-// Initialize schedule and update date-time
+// Initialize
 updateDateTime();
 fetchSchedule();
-setInterval(updateDateTime, 60000); // Update every minute
+setInterval(updateDateTime, 60000);
