@@ -15,11 +15,7 @@ let selectedSemester = 'All'; // Default filter
 // Fetch and display schedule
 function fetchSchedule(day = selectedDay, semester = selectedSemester) {
   fetch(sheetUrl)
-    .then((response) => {
-      if (!response.ok)
-        throw new Error(`Network response was not ok: ${response.statusText}`);
-      return response.text();
-    })
+    .then((response) => response.text())
     .then((data) => {
       const rows = data.split('\n');
       scheduleDiv.innerHTML = ''; // Clear previous schedule
