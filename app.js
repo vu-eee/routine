@@ -7,7 +7,7 @@ const semesterMenu = document.getElementById('semesterMenu');
 let selectedDay = 'Today'; // Default value is 'Today'
 let selectedSemester = 'All'; // Default semester filter is 'All'
 
-const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTu46fvZpcmwROpoYIou2izBmLmJZtSGDvaShQ3ekZmJB2Y7MfvCN0ZCaTo7MZJxt0GC6mpyOCoV12j/pub?output=tsv';
+const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLX2Q6ueX38WbATebZ2r8j2AuIgS2TOxcnGkk5WWwnGq5CITy09fDou81Bw9LB6yq9HxUDKqNj5vXT/pub?output=tsv';
 
 // Update date and time
 function updateDateTime() {
