@@ -1,0 +1,133 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #222;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 375px;
+  margin: auto;
+  background-color: #222;
+  border-radius: 25px;
+  overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  padding: 20px;
+  background-color: #333;
+  text-align: center;
+}
+
+.header h1, .header h2, .header p {
+  margin: 5px 0;
+}
+
+.header h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.header h2 {
+  font-size: 18px;
+  color: #ff0;
+}
+
+.header p {
+  font-size: 14px;
+  color: #aaa;
+}
+
+.header button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #ff0; /* Yellow Button Color */
+  color: #000; /* Black text */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 14px;
+}
+
+.header button:hover {
+  background-color: #d1a100; /* Darker Yellow on Hover */
+}
+
+/* Dropdown Menus */
+#dayMenu, #semesterMenu {
+  display: none;
+  position: absolute;
+  background-color: #444;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: left;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+#dayMenu button, #semesterMenu button {
+  display: block;
+  background: none;
+  border: none;
+  color: #fff;
+  padding: 5px 10px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}
+
+#dayMenu button:hover, #semesterMenu button:hover {
+  background-color: #555;
+}
+
+#schedule {
+  padding: 20px;
+}
+
+.schedule-container {
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #333;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.schedule-container h3 {
+  font-size: 16px;
+}
+
+.schedule-container p {
+  font-size: 14px;
+}
+
+.dark {
+  background-color: #444;
+}
+
+.yellow {
+  background-color: #ff0;
+}
+
+.footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #333;
+}
