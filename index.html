@@ -1,170 +1,170 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class Schedule</title>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Class Schedule</title>
 
-    <!-- Link to Manifest -->
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>Dept. of EEE</h1>
-            <h2>4th(A) Semester Schedule</h2>
-            <p id="date-time"></p>
-            <p id="last-synced"></p>
-            <button id="semesterButton">Select Semester</button>
-            <button id="dayButton">Select Day: Today</button>
+        <!-- Link to Manifest -->
+        <link rel="manifest" href="manifest.json">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <h1>Dept. of EEE</h1>
+                <h2>4th(A) Semester Schedule</h2>
+                <p id="date-time"></p>
+                <p id="last-synced"></p>
+                <button id="semesterButton">Select Semester</button>
+                <button id="dayButton">Select Day</button>
+            </div>
+
+            <!-- Dropdown Menus -->
+            <div id="dayMenu" class="dropdown-menu">
+                <button onclick="selectDay('Sunday')">Sunday</button>
+                <button onclick="selectDay('Monday')">Monday</button>
+                <button onclick="selectDay('Tuesday')">Tuesday</button>
+                <button onclick="selectDay('Wednesday')">Wednesday</button>
+                <button onclick="selectDay('Thursday')">Thursday</button>
+                <button onclick="selectDay('Friday')">Friday</button>
+                <button onclick="selectDay('Saturday')">Saturday</button>
+                <button onclick="closeDayMenu()">Close</button>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content" id="schedule"></div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p>Maintaining by CR</p>
+                <div style="display: none;">
+                    <a href='https://www.free-website-hit-counter.com'>
+                        <img src='https://www.free-website-hit-counter.com/zc.php?d=4&id=1684&s=5' border='0' alt='Free Website Hit Counter'>
+                    </a>
+                    <br />
+                    <small>
+                        <a href='https://www.free-website-hit-counter.com' title="Free Website Hit Counter">Free website hit counter</a>
+                    </small>
+                </div>
+            </div>
+
+            <!-- Modal for Selecting Semester -->
+            <div id="semesterModal" class="modal">
+                <div class="modal-content">
+                    <h3>Select a Semester</h3>
+                    <button onclick="selectSemester('1st')">1st Semester</button>
+                    <button onclick="selectSemester('2nd')">2nd Semester</button>
+                    <button onclick="selectSemester('3rd')">3rd Semester</button>
+                    <button onclick="selectSemester('4th')">4th Semester</button>
+                    <button onclick="closeModal()">Close</button>
+                </div>
+            </div>
         </div>
 
-        <!-- Dropdown Menus -->
-        <div id="dayMenu">
-            <button onclick="selectDay('Sunday')">Sunday</button>
-            <button onclick="selectDay('Monday')">Monday</button>
-            <button onclick="selectDay('Tuesday')">Tuesday</button>
-            <button onclick="selectDay('Wednesday')">Wednesday</button>
-            <button onclick="selectDay('Thursday')">Thursday</button>
-            <button onclick="selectDay('Friday')">Friday</button>
-            <button onclick="selectDay('Saturday')">Saturday</button>
-            <button onclick="closeDayMenu()">Close</button>
-        </div>
+        <script>
+            const scheduleDiv = document.getElementById('schedule');
+            const semesterButton = document.getElementById('semesterButton');
+            const dayButton = document.getElementById('dayButton');
+            const dayMenu = document.getElementById('dayMenu');
+            const semesterModal = document.getElementById('semesterModal');
 
-        <!-- Install App Button -->
-        <button id="installButton" style="display: none;">Install App</button>
+            let selectedDay = 'Today'; // Default value is 'Today'
+            let selectedSemester = '4th'; // Default semester
 
-        <!-- Main Content -->
-        <div class="main-content" id="schedule"></div>
+            const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLX2Q6ueX38WbATebZ2r8j2AuIgS2TOxcnGkk5WWwnGq5CITy09fDou81Bw9LB6yq9HxUDKqNj5vXT/pub?output=tsv';
 
-        <!-- Footer -->
-        <div class="footer">
-            <p>Maintained by CR</p>
-        </div>
-    </div>
-
-    <!-- Modal for Selecting Semester -->
-    <div id="semesterModal" class="modal">
-        <div class="modal-content">
-            <h3>Select a Semester</h3>
-            <button onclick="selectSemester('1st')">1st Semester</button>
-            <button onclick="selectSemester('2nd')">2nd Semester</button>
-            <button onclick="selectSemester('3rd')">3rd Semester</button>
-            <button onclick="selectSemester('4th')">4th Semester</button>
-            <button onclick="closeModal()">Close</button>
-        </div>
-    </div>
-
-    <script>
-        const scheduleDiv = document.getElementById('schedule');
-        const semesterButton = document.getElementById('semesterButton');
-        const dayButton = document.getElementById('dayButton');
-        const dayMenu = document.getElementById('dayMenu');
-        const semesterModal = document.getElementById('semesterModal');
-
-        let selectedDay = 'Today'; // Default value is 'Today'
-        let selectedSemester = '4th'; // Default semester
-
-        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLX2Q6ueX38WbATebZ2r8j2AuIgS2TOxcnGkk5WWwnGq5CITy09fDou81Bw9LB6yq9HxUDKqNj5vXT/pub?output=tsv';
-
-        // Update date and time
-        function updateDateTime() {
-            const now = new Date();
-            const time = now.toLocaleTimeString();
-            const date = now.toLocaleDateString();
-            const dateTimeString = `${date} - ${time}`;
-            document.getElementById('date-time').innerText = dateTimeString;
-            document.getElementById('last-synced').innerText = `Last Synced: ${time}`;
-        }
-
-        // Fetch schedule for selected day and semester
-        function fetchSchedule(day = selectedDay, semester = selectedSemester) {
-            fetch(sheetUrl)
-                .then(response => {
-                    if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
-                    return response.text();
-                })
-                .then(data => {
-                    const rows = data.split('\n');
-                    scheduleDiv.innerHTML = ''; // Clear previous schedule
-                    let isDark = true;
-                    rows.forEach((row, index) => {
-                        if (index === 0) return; // Skip header row
-                        const cols = row.split('\t');
-                        if (cols.length < 8) return;
-
-                        if (
-                            cols[0].trim() === semester &&
-                            (cols[1].trim() === day || (day === 'Today' && cols[1].trim() === new Date().toLocaleString('en-US', { weekday: 'long' })))
-                        ) {
-                            const scheduleContainer = document.createElement('div');
-                            scheduleContainer.classList.add('schedule-container', isDark ? 'dark' : 'yellow');
-                            scheduleContainer.innerHTML = `
-                                <h3>Time: ${cols[2]}</h3>
-                                <p>Course: ${cols[3]}</p>
-                                <p>Teacher: ${cols[4]}</p>
-                                <p>Room: ${cols[5]}</p>
-                                ${cols[6].trim() ? `<p>Special Note: ${cols[6]}</p>` : ''}
-                                ${cols[7].trim() ? `<p><strong>Important Link:</strong> <a href="${cols[7].trim()}" target="_blank" class="important-link">${cols[7].trim().slice(0, 30)}...</a></p>` : ''}
-                            `;
-                            scheduleDiv.appendChild(scheduleContainer);
-                            isDark = !isDark; // Alternate between dark and yellow backgrounds
-                        }
-                    });
-                })
-                .catch(error => console.error('Error fetching or processing data:', error));
-        }
-
-        // Select day and update the button text
-        function selectDay(day) {
-            selectedDay = day;
-            dayButton.innerText = `Select Day: ${day}`;
-            dayMenu.style.display = 'none'; // Hide the menu after selection
-            fetchSchedule(day);
-        }
-
-        // Select semester and fetch schedule
-        function selectSemester(semester) {
-            selectedSemester = semester;
-            semesterModal.style.display = 'none'; // Hide the modal
-            semesterButton.innerText = `Select Semester: ${semester}`;
-            fetchSchedule(selectedDay, semester);
-        }
-
-        // Close the day menu
-        function closeDayMenu() {
-            dayMenu.style.display = 'none';
-        }
-
-        // Close the modal
-        function closeModal() {
-            semesterModal.style.display = 'none';
-        }
-
-        // Event listener to open the day menu
-        dayButton.addEventListener('click', () => {
-            if (dayMenu.style.display === 'none' || dayMenu.style.display === '') {
-                dayMenu.style.display = 'block'; // Show the menu
-            } else {
-                dayMenu.style.display = 'none'; // Hide the menu
+            // Update date and time
+            function updateDateTime() {
+                const now = new Date();
+                const time = now.toLocaleTimeString();
+                const date = now.toLocaleDateString();
+                const dateTimeString = `${date} - ${time}`;
+                document.getElementById('date-time').innerText = dateTimeString;
+                document.getElementById('last-synced').innerText = `Last Synced: ${time}`;
             }
-        });
 
-        // Event listener to open the semester modal
-        semesterButton.addEventListener('click', () => {
-            semesterModal.style.display = 'flex';
-        });
+            // Fetch schedule for selected day and semester
+            function fetchSchedule(day = selectedDay, semester = selectedSemester) {
+                fetch(sheetUrl)
+                    .then(response => {
+                        if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
+                        return response.text();
+                    })
+                    .then(data => {
+                        const rows = data.split('\n');
+                        scheduleDiv.innerHTML = ''; // Clear previous schedule
+                        let isDark = true;
+                        rows.forEach((row, index) => {
+                            if (index === 0) return; // Skip header row
+                            const cols = row.split('\t');
+                            if (cols.length < 8) return;
+                            if (
+                                cols[0].trim() === semester &&
+                                (cols[1].trim() === day || (day === 'Today' && cols[1].trim() === new Date().toLocaleString('en-US', { weekday: 'long' })))
+                            ) {
+                                const scheduleContainer = document.createElement('div');
+                                scheduleContainer.classList.add('schedule-container', isDark ? 'dark' : 'yellow');
+                                scheduleContainer.innerHTML = `
+                                    <h3>Time: ${cols[2]}</h3>
+                                    <p>Course: ${cols[3]}</p>
+                                    <p>Teacher: ${cols[4]}</p>
+                                    <p>Room: ${cols[5]}</p>
+                                    ${cols[6].trim() ? `<p>Special Note: ${cols[6]}</p>` : ''}
+                                    ${cols[7].trim() ? `<p><strong>Important Link:</strong> <a href="${cols[7].trim()}" target="_blank" class="important-link">${cols[7].trim().slice(0, 30)}...</a></p>` : ''}
+                                `;
+                                scheduleDiv.appendChild(scheduleContainer);
+                                isDark = !isDark; // Alternate between dark and yellow backgrounds
+                            }
+                        });
+                    })
+                    .catch(error => console.error('Error fetching or processing data:', error));
+            }
 
-        // Initialize schedule and update date-time
-        document.addEventListener('DOMContentLoaded', () => {
-            dayMenu.style.display = 'none'; // Ensure the day menu is hidden initially
+            // Select day and update the button text
+            function selectDay(day) {
+                selectedDay = day;
+                dayButton.innerText = `Select Day: ${day}`;
+                dayMenu.style.display = 'none'; // Hide the menu after selection
+                fetchSchedule(day);
+            }
+
+            // Open semester modal
+            semesterButton.addEventListener('click', () => {
+                semesterModal.style.display = 'flex';
+            });
+
+            // Select semester
+            function selectSemester(semester) {
+                selectedSemester = semester;
+                semesterButton.innerText = `Semester: ${semester}`;
+                semesterModal.style.display = 'none';
+                fetchSchedule(selectedDay, semester);
+            }
+
+            // Close the day menu
+            function closeDayMenu() {
+                dayMenu.style.display = 'none';
+            }
+
+            // Close the modal
+            function closeModal() {
+                semesterModal.style.display = 'none';
+            }
+
+            // Event listener to toggle day menu as a dropdown
+            dayButton.addEventListener('click', () => {
+                if (dayMenu.style.display === 'none' || dayMenu.style.display === '') {
+                    dayMenu.style.display = 'block'; // Show the menu on first click
+                } else {
+                    dayMenu.style.display = 'none'; // Hide the menu if it's already visible
+                }
+            });
+
+            // Initialize schedule and update date-time
             updateDateTime();
             fetchSchedule();
-        });
-
-        setInterval(updateDateTime, 60000); // Update every minute
-    </script>
-</body>
+            setInterval(updateDateTime, 60000); // Update every minute
+        </script>
+    </body>
 </html>
