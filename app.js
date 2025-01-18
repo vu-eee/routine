@@ -53,6 +53,7 @@ function fetchSchedule() {
                         <p>Course: ${cols[3]}</p>
                         <p>Teacher: ${cols[4]}</p>
                         <p>Room: ${cols[5]}</p>
+                        <p>Semester: ${cols[0]}</p> <!-- Display Semester Name -->
                         ${cols[6].trim() ? `<p>Special Note: ${cols[6]}</p>` : ''}
                         ${cols[7].trim() ? `<p><strong>Important Link:</strong> <a href="${cols[7]}" target="_blank">${cols[7]}</a></p>` : ''}
                     `;
