@@ -15,7 +15,7 @@
             <p id="last-synced"></p>
             <button id="semesterButton">Select Semester</button>
             <button id="dayButton">Select Day: Today</button>
-            <button id="roomButton">Select Room</button>
+            <button id="roomButton">Select Room: All Rooms</button>
         </div>
 
         <!-- Day Selection Dropdown -->
@@ -30,19 +30,18 @@
             <button onclick="closeDayMenu()">Close</button>
         </div>
 
-       <!-- Modal for Selecting Semester -->
-<div id="semesterModal" class="modal">
-    <div class="modal-content">
-        <h3>Select a Semester</h3>
-        <button onclick="selectSemester('All')">All Semesters</button> <!-- Add this line for "All Semesters" -->
-        <button onclick="selectSemester('1st')">1st Semester</button>
-        <button onclick="selectSemester('2nd')">2nd Semester</button>
-        <button onclick="selectSemester('3rd')">3rd Semester</button>
-        <button onclick="selectSemester('4th')">4th Semester</button>
-        <button onclick="closeModal()">Close</button>
-    </div>
-</div>
-
+        <!-- Modal for Selecting Semester -->
+        <div id="semesterModal" class="modal">
+            <div class="modal-content">
+                <h3>Select a Semester</h3>
+                <button onclick="selectSemester('All')">All Semesters</button>
+                <button onclick="selectSemester('1st')">1st Semester</button>
+                <button onclick="selectSemester('2nd')">2nd Semester</button>
+                <button onclick="selectSemester('3rd')">3rd Semester</button>
+                <button onclick="selectSemester('4th')">4th Semester</button>
+                <button onclick="closeModal()">Close</button>
+            </div>
+        </div>
 
         <!-- Modal for Selecting Room -->
         <div id="roomModal" class="modal">
@@ -62,7 +61,7 @@
 
         <!-- Footer -->
         <div class="footer">
-            <p>Maintained by CR</p>
+            <p>Maintaining by CR</p>
         </div>
     </div>
 
