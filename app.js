@@ -8,7 +8,7 @@ const roomModal = document.getElementById('roomModal');
 
 let selectedDay = getToday(); // Default to today's day
 let selectedSemester = '4th'; // Default semester
-let selectedRoom = ''; // Default to no room filter
+let selectedRoom = 'All'; // Default to "All Rooms"
 
 const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLX2Q6ueX38WbATebZ2r8j2AuIgS2TOxcnGkk5WWwnGq5CITy09fDou81Bw9LB6yq9HxUDKqNj5vXT/pub?output=tsv';
 
@@ -41,7 +41,8 @@ function fetchSchedule() {
                 const cols = row.split('\t');
                 if (cols.length < 8) return;
                 if (cols[0].trim() === selectedSemester && cols[1].trim() === selectedDay) {
-                    if (selectedRoom && selectedRoom !== 'All' && cols[5].trim() !== selectedRoom) {
+                    // Only show rows that match the selected room if it's not "All"
+                    if (selectedRoom !== 'All' && cols[5].trim() !== selectedRoom) {
                         return; // Skip if room doesn't match selected one
                     }
                     const scheduleContainer = document.createElement('div');
