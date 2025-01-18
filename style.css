@@ -1,212 +1,127 @@
 /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #222;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background-color: #222;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-    /* Container */
-    .container {
-      width: 100%;
-      max-width: 375px;
-      margin: auto;
-      background-color: #222;
-      border-radius: 25px;
-      overflow: hidden;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
+/* Container */
+.container {
+  width: 100%;
+  max-width: 375px;
+  margin: auto;
+  background-color: #222;
+  border-radius: 25px;
+  overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 
-    /* Header */
-    .header {
-      padding: 20px;
-      background-color: #333;
-      text-align: center;
-    }
+/* Header */
+.header {
+  padding: 20px;
+  background-color: #333;
+  text-align: center;
+}
 
-    .header h1, .header h2, .header p {
-      margin: 5px 0;
-    }
+.header h1, .header h2, .header p {
+  margin: 5px 0;
+}
 
-    .header h1 {
-      font-size: 20px;
-      font-weight: bold;
-    }
+.header h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
 
-    .header h2 {
-      font-size: 18px;
-      color: #ff0;
-    }
+.header h2 {
+  font-size: 18px;
+  color: #ff0;
+}
 
-    .header p {
-      font-size: 14px;
-      color: #aaa;
-    }
+.header p {
+  font-size: 14px;
+  color: #aaa;
+}
 
-    .header button {
-      width: 100%;
-      margin-top: 10px;
-      padding: 10px;
-      background-color: #ff0; /* Yellow Button Color */
-      color: #000; /* Black text */
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      font-size: 14px;
-    }
+.header button, .header select {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #ff0;
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
 
-    .header button:hover {
-      background-color: #d1a100; /* Darker Yellow on Hover */
-    }
+.header button:hover, .header select:hover {
+  background-color: #d1a100;
+}
 
-    /* Dropdown Menus */
-    #dayMenu {
-      display: none;
-      position: absolute;
-      background-color: #444;
-      color: #fff;
-      border-radius: 10px;
-      padding: 10px;
-      text-align: left;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
-      z-index: 10;
-      width: 30%;
-    }
+/* Main Content */
+.main-content {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
 
-    #dayMenu button {
-      display: block;
-      background: none;
-      border: none;
-      color: #fff;
-      padding: 5px 10px;
-      text-align: left;
-      width: 100%;
-      cursor: pointer;
-    }
+.schedule-container {
+  margin-bottom: 15px;
+  border-radius: 15px;
+  overflow: hidden;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
 
-    #dayMenu button:hover {
-      background-color: #555;
-    }
+.schedule-container.dark {
+  background-color: #333;
+  color: #fff;
+}
 
-    /* Modal (Popup) */
-    .modal {
-      display: none; /* Hidden by default */
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
-      justify-content: center;
-      align-items: center;
-      z-index: 20;
-    }
+.schedule-container.yellow {
+  background-color: #ff0;
+  color: #000;
+}
 
-    .modal-content {
-      background-color: #333;
-      padding: 20px;
-      border-radius: 10px;
-      width: 80%;
-      max-width: 300px;
-      text-align: center;
-    }
+.schedule-container h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
 
-    .modal-content a {
-      color: #ff0; /* Yellow links matching previous UI design */
-      text-decoration: none;
-      display: block;
-      margin: 10px 0;
-      font-size: 16px;
-    }
+.schedule-container p {
+  margin: 5px 0;
+  font-size: 14px;
+}
 
-    .modal-content a:hover {
-      color: #d1a100; /* Darker Yellow on Hover */
-    }
+.schedule-container a {
+  text-decoration: none;
+}
 
-    /* Main Content */
-    .main-content {
-      padding: 20px;
-      overflow-y: auto;
-      flex: 1;
-    }
+.schedule-container a.important-link {
+  color: inherit;
+  text-decoration: underline;
+}
 
-    .schedule-container {
-      margin-bottom: 15px;
-      border-radius: 15px;
-      overflow: hidden;
-      padding: 15px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow for better visibility */
-    }
+.schedule-container a.important-link:hover {
+  text-decoration: none;
+}
 
-    /* Dark and Yellow Background for Class Periods */
-    .schedule-container.dark {
-      background-color: #333;
-      color: #fff;
-    }
-
-    .schedule-container.yellow {
-      background-color: #ff0;
-      color: #000;
-    }
-
-    .schedule-container h3 {
-      margin: 0;
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .schedule-container p {
-      margin: 5px 0;
-      font-size: 14px;
-    }
-
-    .schedule-container a {
-      text-decoration: none;
-    }
-
-    /* Important Links Styling */
-    .schedule-container a.important-link {
-      color: inherit; /* Same color as normal text */
-      text-decoration: underline; /* Underline only */
-    }
-
-    .schedule-container a.important-link:hover {
-      text-decoration: none; /* Remove underline on hover */
-    }
-
-    /* Sticky Footer */
-    .footer {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 10px 0;
-      background-color: #111;
-      position: sticky;
-      bottom: 0;
-      width: 100%;
-      border-top: 2px solid #333;
-    }
-
-    .footer img {
-      width: 24px;
-      height: 24px;
-      opacity: 0.8;
-      cursor: pointer;
-      transition: transform 0.2s, opacity 0.2s;
-    }
-
-    .footer img:hover {
-      transform: scale(1.2);
-      opacity: 1;
-    }
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  background-color: #111;
+}
