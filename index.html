@@ -15,6 +15,7 @@
             <p id="last-synced"></p>
             <button id="semesterButton">Select Semester</button>
             <button id="dayButton">Select Day: Today</button>
+            <button id="roomButton">Select Room</button>
         </div>
 
         <!-- Day Selection Dropdown -->
@@ -41,11 +42,24 @@
             </div>
         </div>
 
+        <!-- Modal for Selecting Room -->
+        <div id="roomModal" class="modal">
+            <div class="modal-content">
+                <h3>Select a Room</h3>
+                <button onclick="selectRoom('106')">Room 106</button>
+                <button onclick="selectRoom('310')">Room 310</button>
+                <button onclick="selectRoom('312')">Room 312</button>
+                <button onclick="selectRoom('410')">Room 410</button>
+                <button onclick="selectRoom('510')">Room 510</button>
+                <button onclick="closeRoomModal()">Close</button>
+            </div>
+        </div>
+
         <div class="main-content" id="schedule"></div>
 
         <!-- Footer -->
         <div class="footer">
-            <p>Maintaining by CR</p>
+            <p>Maintained by CR</p>
         </div>
     </div>
 
