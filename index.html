@@ -1,155 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Class Schedule</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Schedule</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <h1>Dept. of EEE</h1>
-      <h2>4th(A) Semester Schedule</h2>
-      <p id="date-time"></p>
-      <p id="last-synced"></p>
-      <button id="menuButton">Open Menu</button>
-    </div>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Dept. of EEE</h1>
+            <h2>4th(A) Semester Schedule</h2>
+            <p id="date-time"></p>
+            <p id="last-synced"></p>
+            <button id="semesterButton">Select Semester</button>
+            <button id="dayButton">Select Day: Today</button>
+        </div>
 
-    <!-- Dropdown Menus -->
-    <div id="menuContainer" style="display: none;">
-      <button id="semesterButton">Select Semester</button>
-      <button id="dayButton">Select Day</button>
+        <!-- Dropdown Menus -->
+        <div id="dayMenu">
+            <button onclick="selectDay('Sunday')">Sunday</button>
+            <button onclick="selectDay('Monday')">Monday</button>
+            <button onclick="selectDay('Tuesday')">Tuesday</button>
+            <button onclick="selectDay('Wednesday')">Wednesday</button>
+            <button onclick="selectDay('Thursday')">Thursday</button>
+            <button onclick="selectDay('Friday')">Friday</button>
+            <button onclick="selectDay('Saturday')">Saturday</button>
+            <button onclick="closeDayMenu()">Close</button>
+        </div>
+        <button id="installButton" style="display: none;">Install App</button>
 
-      <div id="dayMenu" class="dropdown-menu">
-        <button onclick="selectDay('Sunday')">Sunday</button>
-        <button onclick="selectDay('Monday')">Monday</button>
-        <button onclick="selectDay('Tuesday')">Tuesday</button>
-        <button onclick="selectDay('Wednesday')">Wednesday</button>
-        <button onclick="selectDay('Thursday')">Thursday</button>
-        <button onclick="selectDay('Friday')">Friday</button>
-        <button onclick="selectDay('Saturday')">Saturday</button>
-        <button onclick="closeDayMenu()">Close</button>
-      </div>
-    </div>
+        <!-- Main Content -->
+        <div class="main-content" id="schedule"></div>
 
-    <!-- Main Content -->
-    <div class="main-content" id="schedule"></div>
-
-    <!-- Footer -->
-    <div class="footer">
-      <p>Maintained by CR</p>
+        <!-- Footer -->
+        <div class="footer">
+            <p>Maintaining by CR</p>
+        </div>
     </div>
 
     <!-- Modal for Selecting Semester -->
     <div id="semesterModal" class="modal">
-      <div class="modal-content">
-        <h3>Select a Semester</h3>
-        <button onclick="selectSemester('1st')">1st Semester</button>
-        <button onclick="selectSemester('2nd')">2nd Semester</button>
-        <button onclick="selectSemester('3rd')">3rd Semester</button>
-        <button onclick="selectSemester('4th')">4th Semester</button>
-        <button onclick="closeModal()">Close</button>
-      </div>
+        <div class="modal-content">
+            <h3>Select a Semester</h3>
+            <button onclick="selectSemester('1st')">1st Semester</button>
+            <button onclick="selectSemester('2nd')">2nd Semester</button>
+            <button onclick="selectSemester('3rd')">3rd Semester</button>
+            <button onclick="selectSemester('4th')">4th Semester</button>
+            <button onclick="closeModal()">Close</button>
+        </div>
     </div>
-  </div>
-
-  <script>
-    const scheduleDiv = document.getElementById('schedule');
-    const menuButton = document.getElementById('menuButton');
-    const menuContainer = document.getElementById('menuContainer');
-    const semesterButton = document.getElementById('semesterButton');
-    const dayButton = document.getElementById('dayButton');
-    const dayMenu = document.getElementById('dayMenu');
-    const semesterModal = document.getElementById('semesterModal');
-
-    let selectedDay = 'Today';
-    const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLX2Q6ueX38WbATebZ2r8j2AuIgS2TOxcnGkk5WWwnGq5CITy09fDou81Bw9LB6yq9HxUDKqNj5vXT/pub?output=tsv';
-
-    // Toggle menu visibility
-    menuButton.addEventListener('click', () => {
-      menuContainer.style.display = menuContainer.style.display === 'none' ? 'block' : 'none';
-    });
-
-    // Update date and time
-    function updateDateTime() {
-      const now = new Date();
-      const time = now.toLocaleTimeString();
-      const date = now.toLocaleDateString();
-      const dateTimeString = `${date} - ${time}`;
-      document.getElementById('date-time').innerText = dateTimeString;
-      document.getElementById('last-synced').innerText = `Last Synced: ${time}`;
-    }
-
-    // Fetch schedule for selected day
-    function fetchSchedule(day = selectedDay) {
-      fetch(sheetUrl)
-        .then(response => {
-          if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
-          return response.text();
-        })
-        .then(data => {
-          const rows = data.split('\n');
-          scheduleDiv.innerHTML = ''; // Clear previous schedule
-          let isDark = true;
-          rows.forEach((row, index) => {
-            if (index === 0) return; // Skip header row
-            const cols = row.split('\t');
-            if (cols.length < 7) return;
-            if (cols[6].trim() === day || (day === 'Today' && cols[6].trim() === new Date().toLocaleString('en-US', { weekday: 'long' }))) {
-              const scheduleContainer = document.createElement('div');
-              scheduleContainer.classList.add('schedule-container', isDark ? 'dark' : 'yellow');
-              scheduleContainer.innerHTML = `
-                <h3>Time: ${cols[0]}</h3>
-                <p>Course: ${cols[1]}</p>
-                <p>Teacher: ${cols[2]}</p>
-                <p>Room: ${cols[3]}</p>
-                ${cols[4].trim() ? `<p>Special Note: ${cols[4]}</p>` : ''}
-                ${cols[5].trim() ? `<p><strong>Important Link:</strong> <a href="${cols[5].trim()}" target="_blank" class="important-link">${cols[5].trim().slice(0, 30)}...</a></p>` : ''}
-              `;
-              scheduleDiv.appendChild(scheduleContainer);
-              isDark = !isDark; // Alternate between dark and yellow backgrounds
-            }
-          });
-        })
-        .catch(error => console.error('Error fetching or processing data:', error));
-    }
-
-    // Select day and update the button text
-    function selectDay(day) {
-      selectedDay = day;
-      dayButton.innerText = `Select Day: ${day}`;
-      dayMenu.style.display = 'none'; // Hide the menu after selection
-      fetchSchedule(day);
-    }
-
-    // Select semester
-    function selectSemester(semester) {
-      console.log(`Selected semester: ${semester}`);
-      semesterModal.style.display = 'none';
-    }
-
-    // Close the day menu
-    function closeDayMenu() {
-      dayMenu.style.display = 'none';
-    }
-
-    // Close the modal
-    function closeModal() {
-      semesterModal.style.display = 'none';
-    }
-
-    // Toggle day menu visibility
-    dayButton.addEventListener('click', () => {
-      dayMenu.style.display = dayMenu.style.display === 'block' ? 'none' : 'block';
-    });
-
-    // Initialize schedule and update date-time
-    updateDateTime();
-    fetchSchedule();
-    setInterval(updateDateTime, 60000); // Update every minute
-  </script>
 </body>
+<script>
+    window.addEventListener('load', () => {
+        registerSW();
+    });
+
+    // Register the Service Worker
+    async function registerSW() {
+        if ('serviceWorker' in navigator) {
+            try {
+                await navigator.serviceWorker.register('serviceworker.js');
+            } catch (e) {
+                console.log('SW registration failed');
+            }
+        }
+    }
+</script>
+<script src="app.js"></script>
 </html>
