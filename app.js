@@ -40,7 +40,8 @@ function fetchSchedule() {
                 if (index === 0) return; // Skip header row
                 const cols = row.split('\t');
                 if (cols.length < 8) return;
-                if (cols[0].trim() === selectedSemester && cols[1].trim() === selectedDay) {
+                // Show schedule if it matches the selected semester and day, or if "All" is selected
+                if ((selectedSemester === 'All' || cols[0].trim() === selectedSemester) && cols[1].trim() === selectedDay) {
                     // Only show rows that match the selected room if it's not "All"
                     if (selectedRoom !== 'All' && cols[5].trim() !== selectedRoom) {
                         return; // Skip if room doesn't match selected one
@@ -83,7 +84,7 @@ function closeDayMenu() {
 
 function selectSemester(semester) {
     selectedSemester = semester;
-    semesterButton.innerText = `Select Semester: ${semester}`;
+    semesterButton.innerText = `Select Semester: ${semester === 'All' ? 'All Semesters' : semester}`;
     semesterModal.style.display = 'none';
     fetchSchedule();
 }
