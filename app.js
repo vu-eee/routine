@@ -4,7 +4,7 @@ const dayButton = document.getElementById('dayButton');
 const dayMenu = document.getElementById('dayMenu');
 const semesterModal = document.getElementById('semesterModal');
 
-let selectedDay = 'Today'; // Default day
+let selectedDay = getToday(); // Default to today's day
 let selectedSemester = '4th'; // Default semester
 
 const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLX2Q6ueX38WbATebZ2r8j2AuIgS2TOxcnGkk5WWwnGq5CITy09fDou81Bw9LB6yq9HxUDKqNj5vXT/pub?output=tsv';
@@ -16,6 +16,13 @@ function updateDateTime() {
     const date = now.toLocaleDateString();
     document.getElementById('date-time').innerText = `${date} - ${time}`;
     document.getElementById('last-synced').innerText = `Last Synced: ${time}`;
+}
+
+// Get today's day in the format used in schedule (e.g., "Monday")
+function getToday() {
+    const today = new Date();
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    return days[today.getDay()];
 }
 
 // Fetch schedule
