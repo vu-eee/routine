@@ -62,84 +62,155 @@ body {
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    font-size: 16px;
+    transition: background-color 0.3s;
+    font-size: 14px;
 }
 
 .header button:hover {
-    background-color: #f5a623;
+    background-color: #d1a100; /* Darker Yellow on Hover */
 }
 
-/* Schedule Cards */
-.schedule-container {
+/* Dropdown Menus */
+#dayMenu {
+    display: none;
+    position: absolute;
     background-color: #444;
-    padding: 10px;
-    margin: 10px;
+    color: #fff;
     border-radius: 10px;
+    padding: 10px;
+    text-align: left;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    width: 30%;
 }
 
-.schedule-container h3 {
-    font-size: 18px;
-    font-weight: bold;
+#dayMenu button {
+    display: block;
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
 }
 
-.schedule-container p {
-    font-size: 14px;
-    margin: 5px 0;
-}
-
-.schedule-container a {
-    color: #ff0;
-    text-decoration: none;
-}
-
-.schedule-container .yellow {
-    background-color: #f5a623;
-}
-
-.schedule-container .dark {
+#dayMenu button:hover {
     background-color: #555;
 }
 
-/* Modals */
+/* Modal (Popup) */
 .modal {
-    display: none;
+    display: none; /* Hidden by default */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
     justify-content: center;
     align-items: center;
+    z-index: 20;
 }
 
 .modal-content {
     background-color: #333;
     padding: 20px;
     border-radius: 10px;
+    width: 80%;
+    max-width: 300px;
     text-align: center;
 }
 
 .modal-content button {
-    width: 100%;
-    margin-top: 10px;
+    margin: 5px 0;
     padding: 10px;
     background-color: #ff0;
     color: #000;
     border: none;
     border-radius: 10px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .modal-content button:hover {
-    background-color: #f5a623;
+    background-color: #d1a100;
 }
 
-/* Footer */
-.footer {
+/* Main Content */
+.main-content {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Information Cards Styling */
+.schedule-container {
+    margin-bottom: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow for better visibility */
     background-color: #333;
-    text-align: center;
-    padding: 10px;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+/* Dark and Yellow Background for Class Periods */
+.schedule-container.dark {
+    background-color: #333;
+    color: #fff;
+}
+
+.schedule-container.yellow {
+    background-color: #ff0;
+    color: #000;
+}
+
+/* Title and Paragraph Styling */
+.schedule-container h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.schedule-container p {
+    margin: 5px 0;
     font-size: 14px;
-    color: #aaa;
+}
+
+/* Important Links Styling */
+.schedule-container a.important-link {
+    color: inherit; /* Same color as normal text */
+    text-decoration: underline; /* Underline only */
+}
+
+.schedule-container a.important-link:hover {
+    text-decoration: none; /* Remove underline on hover */
+}
+
+/* Sticky Footer */
+.footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    background-color: #111;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    border-top: 2px solid #333;
+}
+
+.footer img {
+    width: 24px;
+    height: 24px;
+    opacity: 0.8;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.footer img:hover {
+    transform: scale(1.2);
+    opacity: 1;
 }
