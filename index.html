@@ -1,41 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Schedule Viewer</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <h1>Schedule Viewer</h1>
-    <div id="controls">
-      <button id="filterDayButton">Filter Day: Today</button>
-      <button id="filterSemesterButton">Filter Semester: All</button>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Schedule</title>
+
+    <!-- Link to Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>Dept. of EEE</h1>
+        <h2>4th(A) Semester Schedule</h2>
+        <p id="date-time"></p>
+        <p id="last-synced"></p>
+        <button id="dayButton">Select Day: Today</button>
+        <select id="semesterDropdown">
+          <option value="all">All Semesters</option>
+          <option value="1st">1st Semester</option>
+          <option value="2nd">2nd Semester</option>
+          <option value="3rd">3rd Semester</option>
+          <option value="4th">4th Semester</option>
+        </select>
+      </div>
+
+      <!-- Dropdown Menus -->
+      <div id="dayMenu">
+        <button onclick="selectDay('Sunday')">Sunday</button>
+        <button onclick="selectDay('Monday')">Monday</button>
+        <button onclick="selectDay('Tuesday')">Tuesday</button>
+        <button onclick="selectDay('Wednesday')">Wednesday</button>
+        <button onclick="selectDay('Thursday')">Thursday</button>
+        <button onclick="selectDay('Friday')">Friday</button>
+        <button onclick="selectDay('Saturday')">Saturday</button>
+        <button onclick="closeDayMenu()">Close</button>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content" id="schedule"></div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>Maintained by CR</p>
+      </div>
     </div>
-  </header>
 
-  <div id="schedule"></div>
-
-  <!-- Day and Semester Menus -->
-  <div id="dayMenu">
-    <button onclick="selectDay('Sunday')">Sunday</button>
-    <button onclick="selectDay('Monday')">Monday</button>
-    <button onclick="selectDay('Tuesday')">Tuesday</button>
-    <button onclick="selectDay('Wednesday')">Wednesday</button>
-    <button onclick="selectDay('Thursday')">Thursday</button>
-    <button onclick="selectDay('Friday')">Friday</button>
-    <button onclick="selectDay('Saturday')">Saturday</button>
-    <button onclick="closeDayMenu()">Close</button>
-  </div>
-
-  <div id="semesterMenu"></div>
-
-  <footer>
-    <p id="dateTime"></p>
-  </footer>
-
-  <script src="app.js"></script>
-</body>
+    <script src="./app.js"></script>
+  </body>
 </html>
-
