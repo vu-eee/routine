@@ -122,16 +122,19 @@ body {
     text-align: center;
 }
 
-.modal-content a {
-    color: #ff0; /* Yellow links matching previous UI design */
-    text-decoration: none;
-    display: block;
-    margin: 10px 0;
-    font-size: 16px;
+.modal-content button {
+    margin: 5px 0;
+    padding: 10px;
+    background-color: #ff0;
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.modal-content a:hover {
-    color: #d1a100; /* Darker Yellow on Hover */
+.modal-content button:hover {
+    background-color: #d1a100;
 }
 
 /* Main Content */
