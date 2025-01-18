@@ -41,7 +41,7 @@ function fetchSchedule() {
                 const cols = row.split('\t');
                 if (cols.length < 8) return;
                 if (cols[0].trim() === selectedSemester && cols[1].trim() === selectedDay) {
-                    if (selectedRoom && cols[5].trim() !== selectedRoom) {
+                    if (selectedRoom && selectedRoom !== 'All' && cols[5].trim() !== selectedRoom) {
                         return; // Skip if room doesn't match selected one
                     }
                     const scheduleContainer = document.createElement('div');
@@ -93,7 +93,7 @@ function closeModal() {
 
 function selectRoom(room) {
     selectedRoom = room;
-    roomButton.innerText = `Select Room: ${room}`;
+    roomButton.innerText = `Select Room: ${room === 'All' ? 'All Rooms' : room}`;
     roomModal.style.display = 'none';
     fetchSchedule();
 }
