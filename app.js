@@ -3,9 +3,12 @@ const semesterButton = document.getElementById('semesterButton');
 const dayButton = document.getElementById('dayButton');
 const dayMenu = document.getElementById('dayMenu');
 const semesterModal = document.getElementById('semesterModal');
+const roomButton = document.getElementById('roomButton');
+const roomModal = document.getElementById('roomModal');
 
 let selectedDay = getToday(); // Default to today's day
 let selectedSemester = '4th'; // Default semester
+let selectedRoom = ''; // Default to no room filter
 
 const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLX2Q6ueX38WbATebZ2r8j2AuIgS2TOxcnGkk5WWwnGq5CITy09fDou81Bw9LB6yq9HxUDKqNj5vXT/pub?output=tsv';
 
@@ -38,6 +41,9 @@ function fetchSchedule() {
                 const cols = row.split('\t');
                 if (cols.length < 8) return;
                 if (cols[0].trim() === selectedSemester && cols[1].trim() === selectedDay) {
+                    if (selectedRoom && cols[5].trim() !== selectedRoom) {
+                        return; // Skip if room doesn't match selected one
+                    }
                     const scheduleContainer = document.createElement('div');
                     scheduleContainer.classList.add('schedule-container', isDark ? 'dark' : 'yellow');
                     scheduleContainer.innerHTML = `
@@ -61,6 +67,7 @@ semesterButton.addEventListener('click', () => semesterModal.style.display = 'fl
 dayButton.addEventListener('click', () => {
     dayMenu.style.display = (dayMenu.style.display === 'none' || !dayMenu.style.display) ? 'block' : 'none';
 });
+roomButton.addEventListener('click', () => roomModal.style.display = 'flex');
 
 function selectDay(day) {
     selectedDay = day;
@@ -82,6 +89,17 @@ function selectSemester(semester) {
 
 function closeModal() {
     semesterModal.style.display = 'none';
+}
+
+function selectRoom(room) {
+    selectedRoom = room;
+    roomButton.innerText = `Select Room: ${room}`;
+    roomModal.style.display = 'none';
+    fetchSchedule();
+}
+
+function closeRoomModal() {
+    roomModal.style.display = 'none';
 }
 
 // Initialize
