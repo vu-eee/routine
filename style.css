@@ -185,6 +185,14 @@ body {
     text-decoration: underline; /* Underline only */
 }
 
+.schedule-container.dark a.important-link {
+    color: #fff; /* White link on dark background */
+}
+
+.schedule-container.yellow a.important-link {
+    color: #000; /* Black link on yellow background */
+}
+
 .schedule-container a.important-link:hover {
     text-decoration: none; /* Remove underline on hover */
 }
