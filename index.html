@@ -30,17 +30,19 @@
             <button onclick="closeDayMenu()">Close</button>
         </div>
 
-        <!-- Modal for Selecting Semester -->
-        <div id="semesterModal" class="modal">
-            <div class="modal-content">
-                <h3>Select a Semester</h3>
-                <button onclick="selectSemester('1st')">1st Semester</button>
-                <button onclick="selectSemester('2nd')">2nd Semester</button>
-                <button onclick="selectSemester('3rd')">3rd Semester</button>
-                <button onclick="selectSemester('4th')">4th Semester</button>
-                <button onclick="closeModal()">Close</button>
-            </div>
-        </div>
+       <!-- Modal for Selecting Semester -->
+<div id="semesterModal" class="modal">
+    <div class="modal-content">
+        <h3>Select a Semester</h3>
+        <button onclick="selectSemester('All')">All Semesters</button> <!-- Add this line for "All Semesters" -->
+        <button onclick="selectSemester('1st')">1st Semester</button>
+        <button onclick="selectSemester('2nd')">2nd Semester</button>
+        <button onclick="selectSemester('3rd')">3rd Semester</button>
+        <button onclick="selectSemester('4th')">4th Semester</button>
+        <button onclick="closeModal()">Close</button>
+    </div>
+</div>
+
 
         <!-- Modal for Selecting Room -->
         <div id="roomModal" class="modal">
