@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +18,7 @@
             <button id="semesterButton">Select Semester</button>
             <button id="dayButton">Select Day: Today</button>
             <button id="roomButton">Select Room: All Rooms</button>
+            <button id="teacherButton">Select Teacher: All Teachers</button>
         </div>
 
         <!-- Day Selection Dropdown -->
@@ -58,11 +60,24 @@
             </div>
         </div>
 
+        <!-- Modal for Selecting Teacher -->
+        <div id="teacherModal" class="modal">
+            <div class="modal-content">
+                <h3>Select a Teacher</h3>
+                <button onclick="selectTeacher('All')">All Teachers</button>
+                <button onclick="selectTeacher('John Doe')">John Doe</button>
+                <button onclick="selectTeacher('Jane Smith')">Jane Smith</button>
+                <button onclick="selectTeacher('Emily Brown')">Emily Brown</button>
+                <button onclick="selectTeacher('Michael Johnson')">Michael Johnson</button>
+                <button onclick="closeTeacherModal()">Close</button>
+            </div>
+        </div>
+
         <div class="main-content" id="schedule"></div>
 
         <!-- Footer -->
         <div class="footer">
-            <p>Maintained by CR</p>
+            <p>Maintaining by CR</p>
         </div>
     </div>
 
