@@ -1,3 +1,48 @@
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('Service Worker registered successfully.'))
+        .catch(err => console.error('Service Worker registration failed:', err));
+}
+
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    const installButton = document.createElement('button');
+    installButton.innerText = 'Install EEE 33';
+    installButton.classList.add('install-popup');
+    document.body.appendChild(installButton);
+
+    installButton.addEventListener('click', () => {
+        installButton.style.display = 'none'; // Hide the button
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the install prompt.');
+            } else {
+                console.log('User dismissed the install prompt.');
+            }
+            deferredPrompt = null;
+        });
+    });
+});
+
+window.addEventListener('appinstalled', () => {
+    console.log('PWA installed successfully.');
+    const installButton = document.querySelector('.install-popup');
+    if (installButton) {
+        installButton.remove();
+    }
+});
+
+// Existing schedule functionality goes here...
+
+
+
+
+
 const scheduleDiv = document.getElementById('schedule');
 const semesterButton = document.getElementById('semesterButton');
 const dayButton = document.getElementById('dayButton');
