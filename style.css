@@ -222,3 +222,26 @@ body {
     transform: scale(1.2);
     opacity: 1;
 }
+
+
+/* Existing styles... */
+
+/* Install Popup Styles */
+.install-popup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #000;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.install-popup:hover {
+    background-color: #444;
+}
