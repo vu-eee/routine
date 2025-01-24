@@ -5,10 +5,13 @@ const dayMenu = document.getElementById('dayMenu');
 const semesterModal = document.getElementById('semesterModal');
 const roomButton = document.getElementById('roomButton');
 const roomModal = document.getElementById('roomModal');
+const teacherButton = document.getElementById('teacherButton');
+const teacherModal = document.getElementById('teacherModal');
 
 let selectedDay = getToday(); // Default to today's day
 let selectedSemester = '4th'; // Default semester
 let selectedRoom = 'All'; // Default to "All Rooms"
+let selectedTeacher = 'All'; // Default to "All Teachers"
 
 const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLX2Q6ueX38WbATebZ2r8j2AuIgS2TOxcnGkk5WWwnGq5CITy09fDou81Bw9LB6yq9HxUDKqNj5vXT/pub?output=tsv';
 
@@ -40,12 +43,13 @@ function fetchSchedule() {
                 if (index === 0) return; // Skip header row
                 const cols = row.split('\t');
                 if (cols.length < 8) return;
-                // Show schedule if it matches the selected semester and day, or if "All" is selected
-                if ((selectedSemester === 'All' || cols[0].trim() === selectedSemester) && cols[1].trim() === selectedDay) {
-                    // Only show rows that match the selected room if it's not "All"
-                    if (selectedRoom !== 'All' && cols[5].trim() !== selectedRoom) {
-                        return; // Skip if room doesn't match selected one
-                    }
+                // Filter by semester, day, room, and teacher
+                if (
+                    (selectedSemester === 'All' || cols[0].trim() === selectedSemester) &&
+                    cols[1].trim() === selectedDay &&
+                    (selectedRoom === 'All' || cols[5].trim() === selectedRoom) &&
+                    (selectedTeacher === 'All' || cols[4].trim() === selectedTeacher)
+                ) {
                     const scheduleContainer = document.createElement('div');
                     scheduleContainer.classList.add('schedule-container', isDark ? 'dark' : 'yellow');
                     scheduleContainer.innerHTML = `
@@ -53,7 +57,7 @@ function fetchSchedule() {
                         <p>Course: ${cols[3]}</p>
                         <p>Teacher: ${cols[4]}</p>
                         <p>Room: ${cols[5]}</p>
-                        <p>Semester: ${cols[0]}</p> <!-- Display Semester Name -->
+                        <p>Semester: ${cols[0]}</p>
                         ${cols[6].trim() ? `<p>Special Note: ${cols[6]}</p>` : ''}
                         ${cols[7].trim() ? `<p><strong>Important Link:</strong> <a href="${cols[7]}" target="_blank">${cols[7]}</a></p>` : ''}
                     `;
@@ -71,6 +75,7 @@ dayButton.addEventListener('click', () => {
     dayMenu.style.display = (dayMenu.style.display === 'none' || !dayMenu.style.display) ? 'block' : 'none';
 });
 roomButton.addEventListener('click', () => roomModal.style.display = 'flex');
+teacherButton.addEventListener('click', () => teacherModal.style.display = 'flex');
 
 function selectDay(day) {
     selectedDay = day;
@@ -103,6 +108,17 @@ function selectRoom(room) {
 
 function closeRoomModal() {
     roomModal.style.display = 'none';
+}
+
+function selectTeacher(teacher) {
+    selectedTeacher = teacher;
+    teacherButton.innerText = `Select Teacher: ${teacher === 'All' ? 'All Teachers' : teacher}`;
+    teacherModal.style.display = 'none';
+    fetchSchedule();
+}
+
+function closeTeacherModal() {
+    teacherModal.style.display = 'none';
 }
 
 // Initialize
