@@ -16,6 +16,7 @@
             <button id="semesterButton">Select Semester</button>
             <button id="dayButton">Select Day: Today</button>
             <button id="roomButton">Select Room: All Rooms</button>
+            <button id="teacherButton">Select Teacher: All Teachers</button>
         </div>
 
         <!-- Day Selection Dropdown -->
@@ -54,6 +55,19 @@
                 <button onclick="selectRoom('410')">Room 410</button>
                 <button onclick="selectRoom('510')">Room 510</button>
                 <button onclick="closeRoomModal()">Close</button>
+            </div>
+        </div>
+
+        <!-- Modal for Selecting Teacher -->
+        <div id="teacherModal" class="modal">
+            <div class="modal-content">
+                <h3>Select a Teacher</h3>
+                <button onclick="selectTeacher('All')">All Teachers</button>
+                <button onclick="selectTeacher('John Doe')">John Doe</button>
+                <button onclick="selectTeacher('Jane Smith')">Jane Smith</button>
+                <button onclick="selectTeacher('Emily Brown')">Emily Brown</button>
+                <button onclick="selectTeacher('Michael Johnson')">Michael Johnson</button>
+                <button onclick="closeTeacherModal()">Close</button>
             </div>
         </div>
 
