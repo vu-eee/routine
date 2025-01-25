@@ -53,6 +53,25 @@ body {
     color: #aaa;
 }
 
+  .button-link {
+   width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #ff0; /* Yellow Button Color */
+    color: #000; /* Black text */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+  }
+
+  .button-link:hover {
+    background-color: #d1a100; /* Darker Yellow on Hover */
+  }
+
+
+
 .header button {
     width: 100%;
     margin-top: 10px;
