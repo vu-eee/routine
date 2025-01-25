@@ -72,6 +72,7 @@ body {
 
 
 /* Modal (Popup) */
+/* Modal (Popup) */
 .modal {
     display: none; /* Hidden by default */
     position: fixed;
@@ -83,6 +84,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 20;
+    overflow-y: auto; /* Enable scrolling if needed */
 }
 
 .modal-content {
@@ -92,6 +94,7 @@ body {
     width: 80%;
     max-width: 300px;
     text-align: center;
+    margin: auto; /* Center the content vertically when scrolled */
 }
 
 .modal-content button {
