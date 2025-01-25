@@ -16,30 +16,24 @@
             <p id="date-time"></p>
             <p id="last-synced"></p>
             <button id="semesterButton">Select Semester</button>
-            <button id="dayButton" class="modal">Select Day: Today</button>
+            <button id="dayButton">Select Day: Today</button>
             <button id="roomButton">Select Room: All Rooms</button>
             <button id="teacherButton">Select Teacher: All Teachers</button>
         </div>
 
         <!-- Day Selection Dropdown -->
-        <!-- Button for Day Selector -->
-<!-- <button id="dayButton">Select Day: Today</button> -->
-
-<!-- Modal for Selecting Day -->
-<div id="dayModal" class="modal">
-    <div class="modal-content">
-        <h3>Select a Day</h3>
-        <button onclick="selectDay('Sunday')">Sunday</button>
-        <button onclick="selectDay('Monday')">Monday</button>
-        <button onclick="selectDay('Tuesday')">Tuesday</button>
-        <button onclick="selectDay('Wednesday')">Wednesday</button>
-        <button onclick="selectDay('Thursday')">Thursday</button>
-        <button onclick="selectDay('Friday')">Friday</button>
-        <button onclick="selectDay('Saturday')">Saturday</button>
-        <button onclick="closeDayModal()">Close</button>
-    </div>
-</div>
-
+        <div id="dayMenu" >
+            <div class="modal-content">
+            <button onclick="selectDay('Sunday')">Sunday</button>
+            <button onclick="selectDay('Monday')">Monday</button>
+            <button onclick="selectDay('Tuesday')">Tuesday</button>
+            <button onclick="selectDay('Wednesday')">Wednesday</button>
+            <button onclick="selectDay('Thursday')">Thursday</button>
+            <button onclick="selectDay('Friday')">Friday</button>
+            <button onclick="selectDay('Saturday')">Saturday</button>
+            <button onclick="closeDayMenu()">Close</button>
+            
+        </div>
 
         <!-- Modal for Selecting Semester -->
         <div id="semesterModal">
