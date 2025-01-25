@@ -37,16 +37,10 @@ window.addEventListener('appinstalled', () => {
     }
 });
 
-// Existing schedule functionality goes here...
-
-
-
-
-
 const scheduleDiv = document.getElementById('schedule');
 const semesterButton = document.getElementById('semesterButton');
 const dayButton = document.getElementById('dayButton');
-const dayMenu = document.getElementById('dayMenu');
+const dayModal = document.getElementById('dayModal');
 const semesterModal = document.getElementById('semesterModal');
 const roomButton = document.getElementById('roomButton');
 const roomModal = document.getElementById('roomModal');
@@ -69,7 +63,7 @@ function updateDateTime() {
     document.getElementById('last-synced').innerText = `Last Synced: ${time}`;
 }
 
-// Get today's day in the format used in schedule (e.g., "Monday")
+// Get today's day in the format used in the schedule (e.g., "Monday")
 function getToday() {
     const today = new Date();
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -116,21 +110,20 @@ function fetchSchedule() {
 
 // Event Listeners
 semesterButton.addEventListener('click', () => semesterModal.style.display = 'flex');
-dayButton.addEventListener('click', () => {
-    dayMenu.style.display = (dayMenu.style.display === 'none' || !dayMenu.style.display) ? 'block' : 'none';
-});
+dayButton.addEventListener('click', () => dayModal.style.display = 'flex');
 roomButton.addEventListener('click', () => roomModal.style.display = 'flex');
 teacherButton.addEventListener('click', () => teacherModal.style.display = 'flex');
 
+// Functions for Modal Selection
 function selectDay(day) {
     selectedDay = day;
     dayButton.innerText = `Select Day: ${day}`;
-    dayMenu.style.display = 'none';
+    dayModal.style.display = 'none';
     fetchSchedule();
 }
 
-function closeDayMenu() {
-    dayMenu.style.display = 'none';
+function closeDayModal() {
+    dayModal.style.display = 'none';
 }
 
 function selectSemester(semester) {
