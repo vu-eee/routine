@@ -117,7 +117,7 @@ function fetchSchedule() {
 // Event Listeners
 semesterButton.addEventListener('click', () => semesterModal.style.display = 'flex');
 dayButton.addEventListener('click', () => {
-    dayMenu.style.display = (dayMenu.style.display === 'none' || !dayMenu.style.display) ? 'block' : 'none';
+    dayMenu.style.display = (dayMenu.style.display === 'none' || !dayMenu.style.display) ? 'flex' : 'none';
 });
 roomButton.addEventListener('click', () => roomModal.style.display = 'flex');
 teacherButton.addEventListener('click', () => teacherModal.style.display = 'flex');
