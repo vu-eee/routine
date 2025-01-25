@@ -70,27 +70,6 @@ body {
     background-color: #d1a100; /* Darker Yellow on Hover */
 }
 
-/* Dropdown Menus */
-
-
-
-
-
-
-#dayMenu button {
-    display: block;
-    background: none;
-    border: none;
-    color: #fff;
-    padding: 5px 10px;
-    text-align: left;
-    width: 100%;
-    cursor: pointer;
-}
-
-#dayMenu button:hover {
-    background-color: #555;
-}
 
 /* Modal (Popup) */
 .modal {
