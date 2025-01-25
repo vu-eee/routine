@@ -166,6 +166,16 @@ function closeTeacherModal() {
     teacherModal.style.display = 'none';
 }
 
+if ('serviceWorker' in navigator && 'SyncManager' in window) {
+    navigator.serviceWorker.ready.then(registration => {
+        return registration.sync.register('update-sheet');
+    }).catch(err => {
+        console.error('Failed to register sync:', err);
+    });
+}
+
+
+
 // Initialize
 updateDateTime();
 fetchSchedule();
