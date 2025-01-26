@@ -54,7 +54,7 @@ const teacherButton = document.getElementById('teacherButton');
 const teacherModal = document.getElementById('teacherModal');
 
 let selectedDay = getToday(); // Default to today's day
-let selectedSemester = '4th'; // Default semester
+let selectedSemester = 'All'; // Default semester
 let selectedRoom = 'All'; // Default to "All Rooms"
 let selectedTeacher = 'All'; // Default to "All Teachers"
 
