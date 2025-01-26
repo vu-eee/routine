@@ -11,7 +11,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     deferredPrompt = e;
 
     const installButton = document.createElement('button');
-    installButton.innerText = 'Install EEE 33';
+    installButton.innerText = 'Install EEE';
     installButton.classList.add('install-popup');
     document.body.appendChild(installButton);
 
